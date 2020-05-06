@@ -29,45 +29,47 @@
 
 }
 
-.toolbar-tray .notification-list {
-  color: #000;
+.toolbar-tray {
+  .notification-list {
+    color: #000;
 
-  li {
-    padding: 1em 1.3333em;
-    position: relative;
-  }
+    li {
+      padding: 1em 1.3333em;
+      position: relative;
+    }
 
-  a {
-    padding: 0;
-  }
+    a {
+      padding: 0;
+    }
 
-  .use-ajax {
-    font-size: 0;
+    .use-ajax {
+      font-size: 0;
 
-    &::before {
-      content: 'X';
-      height: 12px;
-      width: 12px;
-      display: block;
-      color: #000;
-      font-size: 12px;
-      position: absolute;
-      right: 0;
-      top: 0;
+      &::before {
+        content: 'X';
+        height: 12px;
+        width: 12px;
+        display: block;
+        color: #000;
+        font-size: 12px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+    }
+
+    .status {
+      background: #90ee90;
+    }
+
+    .warning {
+      background: #ffffe0;
+    }
+
+    .error {
+      background: #cd5c5c;
     }
 
   }
-
-  .status {
-    background: lightgreen;
-  }
-
-  .warning {
-    background: lightyellow;
-  }
-
-  .error {
-    background: indianred;
-  }
-
 }
