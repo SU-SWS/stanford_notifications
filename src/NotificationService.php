@@ -34,6 +34,14 @@ class NotificationService implements NotificationServiceInterface {
    */
   protected $entityTypeManager;
 
+  /**
+   * NotificationService constructor.
+   *
+   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
+   *   Current user account.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager service.
+   */
   public function __construct(AccountProxyInterface $current_user, EntityTypeManagerInterface $entity_type_manager) {
     $this->currentUser = $current_user;
     $this->entityTypeManager = $entity_type_manager;
@@ -43,23 +51,8 @@ class NotificationService implements NotificationServiceInterface {
    * {@inheritDoc}
    */
   public function toolbar() {
-    $notification_list = [];
+    $notification_list = $this->getToolbarTrayItems($this->getUserNotifications());
     $cache_tags = ['notifications:' . $this->currentUser->id()];
-
-    foreach ($this->getUserNotifications() as $notification) {
-      $cache_tags[] = 'notification:' . $notification->id();
-      $clear_link = Link::createFromRoute($this->t('Delete'), 'stanford_notifications.clear', ['notification' => $notification->id()], ['attributes' => ['class' => ['use-ajax']]]);
-      $notification_list[] = [
-        '#wrapper_attributes' => [
-          'data-notification-id' => $notification->id(),
-          'class' => [
-            'menu-item',
-            Html::cleanCssIdentifier($notification->status()),
-          ],
-        ],
-        '#markup' => $notification->message() . $clear_link->toString(),
-      ];
-    }
 
     $items['notifications'] = [
       '#type' => 'toolbar_item',
@@ -90,6 +83,34 @@ class NotificationService implements NotificationServiceInterface {
       ],
     ];
     return $items;
+  }
+
+  /**
+   * Get a list render array of the given notifications for the toolbar tray.
+   *
+   * @param \Drupal\stanford_notifications\Entity\Notification[] $notifications
+   *   Array of notifications to build the list.
+   *
+   * @return array
+   *   Array of list render items for the tray.
+   */
+  protected function getToolbarTrayItems($notifications) {
+    $notification_list = [];
+    foreach ($notifications as $notification) {
+      $cache_tags[] = 'notification:' . $notification->id();
+      $clear_link = Link::createFromRoute($this->t('Delete'), 'stanford_notifications.clear', ['notification' => $notification->id()], ['attributes' => ['class' => ['use-ajax']]]);
+      $notification_list[] = [
+        '#wrapper_attributes' => [
+          'data-notification-id' => $notification->id(),
+          'class' => [
+            'menu-item',
+            Html::cleanCssIdentifier($notification->status()),
+          ],
+        ],
+        '#markup' => $notification->message() . $clear_link->toString(),
+      ];
+    }
+    return $notification_list;
   }
 
   /**
