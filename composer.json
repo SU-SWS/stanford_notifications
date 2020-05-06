@@ -1,11 +1,16 @@
 {
-  "name": "su-sws/stanford_module_example",
-  "description": "Stanford Module Example",
-  "type": "drupal-custom-module",
-  "homepage": "https://github.com/SU-SWS/stanford_module_example",
-  "authors": [],
-  "license": "GPL-2.0+",
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "require": {}
+    "name": "su-sws/stanford_notifications",
+    "description": "Stanford Notifications",
+    "type": "drupal-custom-module",
+    "homepage": "https://github.com/SU-SWS/stanford_notifications",
+    "authors": [],
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {},
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\stanford_notifications\\": "./tests/src"
+        }
+    }
 }

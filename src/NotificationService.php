@@ -52,7 +52,6 @@ class NotificationService implements NotificationServiceInterface {
    */
   public function toolbar() {
     $notification_list = $this->getToolbarTrayItems($this->getUserNotifications());
-    $cache_tags = ['notifications:' . $this->currentUser->id()];
 
     $items['notifications'] = [
       '#type' => 'toolbar_item',
@@ -74,7 +73,7 @@ class NotificationService implements NotificationServiceInterface {
       ],
       '#cache' => [
         'keys' => [$this->currentUser->id()],
-        'tags' => $cache_tags,
+        'tags' => ['notifications:' . $this->currentUser->id()],
       ],
       '#attached' => [
         'library' => [
@@ -94,10 +93,9 @@ class NotificationService implements NotificationServiceInterface {
    * @return array
    *   Array of list render items for the tray.
    */
-  protected function getToolbarTrayItems($notifications) {
+  protected function getToolbarTrayItems(array $notifications) {
     $notification_list = [];
     foreach ($notifications as $notification) {
-      $cache_tags[] = 'notification:' . $notification->id();
       $clear_link = Link::createFromRoute($this->t('Delete'), 'stanford_notifications.clear', ['notification' => $notification->id()], ['attributes' => ['class' => ['use-ajax']]]);
       $notification_list[] = [
         '#wrapper_attributes' => [
@@ -108,6 +106,7 @@ class NotificationService implements NotificationServiceInterface {
           ],
         ],
         '#markup' => $notification->message() . $clear_link->toString(),
+        '#cache' => ['tags' => ['notification:' . $notification->id()]],
       ];
     }
     return $notification_list;
