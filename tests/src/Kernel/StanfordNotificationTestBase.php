@@ -7,6 +7,9 @@ use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
 use Drupal\user\RoleInterface;
 
+/**
+ * Base test class for kernel tests.
+ */
 abstract class StanfordNotificationTestBase extends KernelTestBase {
 
   /**
