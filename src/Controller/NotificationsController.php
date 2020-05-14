@@ -31,23 +31,23 @@ class NotificationsController extends ControllerBase {
    *
    * @var \Drupal\stanford_notifications\NotificationService
    */
-  protected $notification_service;
+  protected $notificationService;
 
   /**
-   * {@inheritDoc}
+   * {@InheritDoc}
    */
-  public function __construct(RendererInterface $renderer, NotificationService $notification_service) {
+  public function __construct(RendererInterface $renderer, NotificationService $notificationService) {
     $this->renderer = $renderer;
-    $this->notification_service = $notification_service;
+    $this->notificationService = $notificationService;
   }
 
   /**
-   * {@inheritDoc}
+   * {@InheritDoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('notification_service'),
+      $container->get('notification_service')
     );
   }
 
