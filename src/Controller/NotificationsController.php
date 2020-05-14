@@ -4,6 +4,7 @@ namespace Drupal\stanford_notifications\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\RemoveCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\stanford_notifications\NotificationInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -34,6 +35,16 @@ class NotificationsController extends ControllerBase {
     $notification->delete();
     $response = new AjaxResponse();
     $response->addCommand(new RemoveCommand('[data-notification-id="' . $notification->id() . '"]'));
+
+    // A CSS selector for the elements to which the data will be attached.
+    $selector = '#toolbar-item-notifications';
+    $data = \Drupal::service('notification_service')->toolbar();
+    unset($data['notifications']['tray']);
+    $data['notifications']['tab']['#attributes']['class'][] = 'is-active';
+    $data['notifications']['tab']['#attributes']['id'] = 'toolbar-item-notifications';
+    $tab = \Drupal::service('renderer')->render($data);
+    $response->addCommand(new ReplaceCommand($selector, $tab));
+
     return $response;
   }
 
