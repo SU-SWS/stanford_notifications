@@ -3,14 +3,13 @@
 namespace Drupal\stanford_notifications\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\RemoveCommand;
-use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\stanford_notifications\NotificationInterface;
+use Drupal\stanford_notifications\NotificationServiceInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Render\RendererInterface;
-use Drupal\stanford_notifications\NotificationService;
 
 /**
  * Class NotificationsController for notification ajax calls.
@@ -20,24 +19,16 @@ use Drupal\stanford_notifications\NotificationService;
 class NotificationsController extends ControllerBase {
 
   /**
-   * The renderer.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
-
-  /**
    * The notification service.
    *
-   * @var \Drupal\stanford_notifications\NotificationService
+   * @var \Drupal\stanford_notifications\NotificationServiceInterface
    */
   protected $notificationService;
 
   /**
    * {@inheritDoc}
    */
-  public function __construct(RendererInterface $renderer, NotificationService $notificationService) {
-    $this->renderer = $renderer;
+  public function __construct(NotificationServiceInterface $notificationService) {
     $this->notificationService = $notificationService;
   }
 
@@ -46,7 +37,6 @@ class NotificationsController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('renderer'),
       $container->get('notification_service')
     );
   }
@@ -70,18 +60,10 @@ class NotificationsController extends ControllerBase {
     $notification->delete();
     $response = new AjaxResponse();
     $response->addCommand(new RemoveCommand('[data-notification-id="' . $notification->id() . '"]'));
-
-    // A CSS selector for the elements to which the data will be attached.
-    $selector = '#toolbar-item-notifications';
-    $data = $this->notificationService->toolbar();
-    unset($data['notifications']['tray']);
-    $data['notifications']['tab']['#attributes']['class'][] = 'is-active trigger';
-    $data['notifications']['tab']['#attributes']['id'] = 'toolbar-item-notifications';
-    $data['notifications']['tab']['#attributes']['data-toolbar-tray'] = 'toolbar-item-notifications-tray';
-    $data['notifications']['tab']['#attributes']['role'] = 'button';
-    $data['notifications']['tab']['#attributes']['aria-pressed'] = "true";
-    $tab = $this->renderer->render($data);
-    $response->addCommand(new ReplaceCommand($selector, $tab));
+    $response->addCommand(new InvokeCommand('.toolbar-icon-notifications', 'attr', [
+      'data-notification-count',
+      count($this->notificationService->getUserNotifications()),
+    ]));
 
     return $response;
   }
