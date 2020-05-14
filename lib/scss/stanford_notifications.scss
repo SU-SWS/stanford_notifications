@@ -1,0 +1,75 @@
+@charset 'UTF-8';
+
+.notifications-tab {
+  .toolbar-item {
+    &::after {
+      content: attr(data-notification-count);
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 10px;
+      background: #fff;
+      width: 10px;
+      border-radius: 5px;
+      color: #000;
+      text-align: center;
+    }
+  }
+
+  .toolbar-item {
+    padding-right: 1.3333em;
+    padding-left: 2.75em;
+  }
+
+  .toolbar-item {
+    &::before {
+      background: url('../assets/img/bell.png') no-repeat center center;
+    }
+  }
+
+}
+
+.toolbar-tray {
+  .notification-list {
+    color: #000;
+
+    li {
+      padding: 1em 1.3333em;
+      position: relative;
+    }
+
+    a {
+      padding: 0;
+    }
+
+    .use-ajax {
+      font-size: 0;
+
+      &::before {
+        content: 'X';
+        height: 12px;
+        width: 12px;
+        display: block;
+        color: #000;
+        font-size: 12px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+    }
+
+    .status {
+      background: #90ee90;
+    }
+
+    .warning {
+      background: #ffffe0;
+    }
+
+    .error {
+      background: #cd5c5c;
+    }
+
+  }
+}

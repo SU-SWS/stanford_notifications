@@ -1,5 +1,5 @@
 # [Stanford Notifications](https://github.com/SU-SWS/stanford_notifications)
-##### Version: 8.x-2.x
+##### Version: 8.x-1.x
 
 Maintainers: [Mike Decker](https://github.com/pookmish), [sherakama](https://github.com/sherakama)
 
@@ -8,9 +8,9 @@ Changelog: [Changelog.txt](CHANGELOG.txt)
 Description
 ---
 
-The Stanford Module Example module is used to do some things. Please put a
-description of what this module does so that a new developer can get a quick
-understanding about what this module does.
+This module provides a way for users to receive notifications in the admin toolbar for a variety of purposes.
+
+Notifications are entities and can be created via the entity type itself, or via the `notification_service` service.
 
 Accessibility
 ---
