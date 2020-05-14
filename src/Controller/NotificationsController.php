@@ -73,7 +73,7 @@ class NotificationsController extends ControllerBase {
 
     // A CSS selector for the elements to which the data will be attached.
     $selector = '#toolbar-item-notifications';
-    $data = $this->notification_service->toolbar();
+    $data = $this->notificationService->toolbar();
     unset($data['notifications']['tray']);
     $data['notifications']['tab']['#attributes']['class'][] = 'is-active';
     $data['notifications']['tab']['#attributes']['id'] = 'toolbar-item-notifications';
