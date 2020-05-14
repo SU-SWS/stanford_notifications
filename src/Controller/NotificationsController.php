@@ -34,7 +34,7 @@ class NotificationsController extends ControllerBase {
   protected $notificationService;
 
   /**
-   * {@InheritDoc}
+   * {@inheritDoc}
    */
   public function __construct(RendererInterface $renderer, NotificationService $notificationService) {
     $this->renderer = $renderer;
@@ -42,7 +42,7 @@ class NotificationsController extends ControllerBase {
   }
 
   /**
-   * {@InheritDoc}
+   * {@inheritDoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
