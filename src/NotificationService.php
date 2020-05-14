@@ -7,7 +7,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Messenger\Messenger;
-use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 
@@ -23,7 +23,7 @@ class NotificationService implements NotificationServiceInterface {
   /**
    * Current user account.
    *
-   * @var \Drupal\Core\Session\AccountProxyInterface
+   * @var \Drupal\Core\Session\AccountInterface
    */
   protected $currentUser;
 
@@ -37,12 +37,12 @@ class NotificationService implements NotificationServiceInterface {
   /**
    * NotificationService constructor.
    *
-   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
+   * @param \Drupal\Core\Session\AccountInterface $current_user
    *   Current user account.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Entity type manager service.
    */
-  public function __construct(AccountProxyInterface $current_user, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(AccountInterface $current_user, EntityTypeManagerInterface $entity_type_manager) {
     $this->currentUser = $current_user;
     $this->entityTypeManager = $entity_type_manager;
   }
@@ -145,7 +145,7 @@ class NotificationService implements NotificationServiceInterface {
   /**
    * {@inheritDoc}
    */
-  public function getUserNotifications(AccountProxyInterface $account = NULL) {
+  public function getUserNotifications(AccountInterface $account = NULL) {
     if (!$account) {
       $account = $this->currentUser;
     }
@@ -156,7 +156,7 @@ class NotificationService implements NotificationServiceInterface {
   /**
    * {@inheritDoc}
    */
-  public function clearUserNotifications(AccountProxyInterface $account = NULL) {
+  public function clearUserNotifications(AccountInterface $account = NULL) {
     foreach ($this->getUserNotifications($account) as $notification) {
       $notification->delete();
     }

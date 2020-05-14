@@ -3,7 +3,7 @@
 namespace Drupal\stanford_notifications;
 
 use Drupal\Core\Messenger\Messenger;
-use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\Session\AccountInterface;
 
 /**
  * Notification entity service for easy fetching and creating.
@@ -35,20 +35,20 @@ interface NotificationServiceInterface {
   /**
    * Get all notification entities for a given account or the current user.
    *
-   * @param \Drupal\Core\Session\AccountProxyInterface|null $account
+   * @param \Drupal\Core\Session\AccountInterface|null $account
    *   Optionally get notifications for this account.
    *
    * @return \Drupal\stanford_notifications\Entity\Notification[]
    *   Array of notifications for the user.
    */
-  public function getUserNotifications(AccountProxyInterface $account = NULL);
+  public function getUserNotifications(AccountInterface $account = NULL);
 
   /**
    * Clear out all notifications for the user.
    *
-   * @param \Drupal\Core\Session\AccountProxyInterface $account
+   * @param \Drupal\Core\Session\AccountInterface $account
    *   User account to clear.
    */
-  public function clearUserNotifications(AccountProxyInterface $account);
+  public function clearUserNotifications(AccountInterface $account);
 
 }
