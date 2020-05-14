@@ -2,7 +2,7 @@
 
 .notifications-tab {
   .toolbar-item {
-    &::after {
+    &:not([data-notification-count="0"])::after {
       content: attr(data-notification-count);
       position: absolute;
       top: 0;
