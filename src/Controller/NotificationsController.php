@@ -3,10 +3,13 @@
 namespace Drupal\stanford_notifications\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\RemoveCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\stanford_notifications\NotificationInterface;
+use Drupal\stanford_notifications\NotificationServiceInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class NotificationsController for notification ajax calls.
@@ -14,6 +17,29 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
  * @package Drupal\stanford_notifications\Controller
  */
 class NotificationsController extends ControllerBase {
+
+  /**
+   * The notification service.
+   *
+   * @var \Drupal\stanford_notifications\NotificationServiceInterface
+   */
+  protected $notificationService;
+
+  /**
+   * {@inheritDoc}
+   */
+  public function __construct(NotificationServiceInterface $notificationService) {
+    $this->notificationService = $notificationService;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('notification_service')
+    );
+  }
 
   /**
    * Controller callback when a user clears a notification.
@@ -34,6 +60,11 @@ class NotificationsController extends ControllerBase {
     $notification->delete();
     $response = new AjaxResponse();
     $response->addCommand(new RemoveCommand('[data-notification-id="' . $notification->id() . '"]'));
+    $response->addCommand(new InvokeCommand('.toolbar-icon-notifications', 'attr', [
+      'data-notification-count',
+      count($this->notificationService->getUserNotifications()),
+    ]));
+
     return $response;
   }
 
