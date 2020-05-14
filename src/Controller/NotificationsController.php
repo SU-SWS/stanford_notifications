@@ -75,8 +75,11 @@ class NotificationsController extends ControllerBase {
     $selector = '#toolbar-item-notifications';
     $data = $this->notificationService->toolbar();
     unset($data['notifications']['tray']);
-    $data['notifications']['tab']['#attributes']['class'][] = 'is-active';
+    $data['notifications']['tab']['#attributes']['class'][] = 'is-active trigger';
     $data['notifications']['tab']['#attributes']['id'] = 'toolbar-item-notifications';
+    $data['notifications']['tab']['#attributes']['data-toolbar-tray'] = 'toolbar-item-notifications-tray';
+    $data['notifications']['tab']['#attributes']['role'] = 'button';
+    $data['notifications']['tab']['#attributes']['aria-pressed'] = "true";
     $tab = $this->renderer->render($data);
     $response->addCommand(new ReplaceCommand($selector, $tab));
 
