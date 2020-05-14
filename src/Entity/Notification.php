@@ -49,6 +49,7 @@ class Notification extends ContentEntityBase implements NotificationInterface {
    * {@inheritDoc}
    */
   public function message() {
+
     return $this->get('message')->getString();
   }
 

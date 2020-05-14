@@ -29,47 +29,45 @@
 
 }
 
-.toolbar-tray {
+.toolbar-tray.toolbar-tray-horizontal {
   .notification-list {
     color: #000;
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: 1.5rem;
 
     li {
       padding: 1em 1.3333em;
       position: relative;
+      float: none;
+      margin: 0 10px 0 0;
+      flex: 1 0 auto;
+      max-width: 350px;
+      background-position: left 5px;
     }
 
     a {
       padding: 0;
+      display: inline-block;
     }
 
     .use-ajax {
       font-size: 0;
 
       &::before {
-        content: 'X';
+        content: "X";
         height: 12px;
         width: 12px;
         display: block;
         color: #000;
         font-size: 12px;
         position: absolute;
-        right: 0;
-        top: 0;
+        right: 4px;
+        top: 4px;
+        background: #fff;
+        border-radius: 10px;
+        text-align: center;
       }
-
     }
-
-    .status {
-      background: #90ee90;
-    }
-
-    .warning {
-      background: #ffffe0;
-    }
-
-    .error {
-      background: #cd5c5c;
-    }
-
   }
 }

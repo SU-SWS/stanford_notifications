@@ -97,15 +97,23 @@ class NotificationService implements NotificationServiceInterface {
     $notification_list = [];
     foreach ($notifications as $notification) {
       $clear_link = Link::createFromRoute($this->t('Delete'), 'stanford_notifications.clear', ['notification' => $notification->id()], ['attributes' => ['class' => ['use-ajax']]]);
+
+      $status = Html::cleanCssIdentifier($notification->status());
+
       $notification_list[] = [
         '#wrapper_attributes' => [
           'data-notification-id' => $notification->id(),
           'class' => [
-            'menu-item',
-            Html::cleanCssIdentifier($notification->status()),
+            'su-alert',
+            'su-alert--' . ($status == 'status' ? 'success' : $status),
           ],
         ],
-        '#markup' => $notification->message() . $clear_link->toString(),
+        'message' => [
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' => $notification->message() . $clear_link->toString(),
+          '#attributes' => ['class' => ['su-alert__body']]
+        ],
         '#cache' => ['tags' => ['notification:' . $notification->id()]],
       ];
     }
