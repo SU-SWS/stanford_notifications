@@ -35,51 +35,53 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 }
 
-.toolbar-tray.toolbar-tray-horizontal {
-  .notification-list {
-    color: #000;
-    display: flex;
-    flex-wrap: nowrap;
-    font-size: 15px;
+.toolbar-tray {
+  &.toolbar-tray-horizontal {
+    .notification-list {
+      color: #000;
+      display: flex;
+      flex-wrap: nowrap;
+      font-size: 15px;
 
-    li {
-      padding: 1em 1.3333em;
-      position: relative;
-      float: none;
-      margin: 0 10px 0 0;
-      flex: 1 0 auto;
-      max-width: 350px;
-      background-position: left 5px;
+      li {
+        padding: 1em 1.3333em;
+        position: relative;
+        float: none;
+        margin: 0 10px 0 0;
+        flex: 1 0 auto;
+        max-width: 350px;
+        background-position: left 5px;
 
-      &.su-alert--success,
-      &.su-alert--error {
-        a {
-          color: #fff;
+        &.su-alert--success,
+        &.su-alert--error {
+          a {
+            color: #fff;
+          }
         }
       }
-    }
 
-    a {
-      padding: 0;
-      display: inline-block;
-    }
+      a {
+        padding: 0;
+        display: inline-block;
+      }
 
-    .use-ajax {
-      font-size: 0;
+      .use-ajax {
+        font-size: 0;
 
-      &::before {
-        content: "X";
-        height: 12px;
-        width: 12px;
-        display: block;
-        color: #000;
-        font-size: 12px;
-        position: absolute;
-        right: 4px;
-        top: 4px;
-        background: #fff;
-        border-radius: 10px;
-        text-align: center;
+        &::before {
+          content: "X";
+          height: 12px;
+          width: 12px;
+          display: block;
+          color: #000;
+          font-size: 12px;
+          position: absolute;
+          right: 4px;
+          top: 4px;
+          background: #fff;
+          border-radius: 10px;
+          text-align: center;
+        }
       }
     }
   }

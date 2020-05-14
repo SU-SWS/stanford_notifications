@@ -112,7 +112,7 @@ class NotificationService implements NotificationServiceInterface {
           '#type' => 'html_tag',
           '#tag' => 'div',
           '#value' => $notification->message() . $clear_link->toString(),
-          '#attributes' => ['class' => ['su-alert__body']]
+          '#attributes' => ['class' => ['su-alert__body']],
         ],
         '#cache' => ['tags' => ['notification:' . $notification->id()]],
       ];
