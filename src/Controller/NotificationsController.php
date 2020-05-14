@@ -8,6 +8,9 @@ use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\stanford_notifications\NotificationInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\stanford_notifications\NotificationService;
 
 /**
  * Class NotificationsController for notification ajax calls.
@@ -15,6 +18,38 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
  * @package Drupal\stanford_notifications\Controller
  */
 class NotificationsController extends ControllerBase {
+
+  /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The notification service.
+   *
+   * @var \Drupal\stanford_notifications\NotificationService
+   */
+  protected $notification_service;
+
+  /**
+   * {@inheritDoc}
+   */
+  public function __construct(RendererInterface $renderer, NotificationService $notification_service) {
+    $this->renderer = $renderer;
+    $this->notification_service = $notification_service;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('renderer'),
+      $container->get('notification_service'),
+    );
+  }
 
   /**
    * Controller callback when a user clears a notification.
@@ -38,11 +73,11 @@ class NotificationsController extends ControllerBase {
 
     // A CSS selector for the elements to which the data will be attached.
     $selector = '#toolbar-item-notifications';
-    $data = \Drupal::service('notification_service')->toolbar();
+    $data = $this->notification_service->toolbar();
     unset($data['notifications']['tray']);
     $data['notifications']['tab']['#attributes']['class'][] = 'is-active';
     $data['notifications']['tab']['#attributes']['id'] = 'toolbar-item-notifications';
-    $tab = \Drupal::service('renderer')->render($data);
+    $tab = $this->renderer->render($data);
     $response->addCommand(new ReplaceCommand($selector, $tab));
 
     return $response;
