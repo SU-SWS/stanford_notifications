@@ -1,7 +1,7 @@
-# Stanford Module Example
+# Stanford Notifications
 
 8.x-1.0
 --------------------------------------------------------------------------------  
-_Release Date: YYYY-MM-DD_
+_Release Date: 2020-05-15_
 
 - Initial Release
