@@ -1,5 +1,11 @@
 @charset 'UTF-8';
 
+$su-image-path: "~decanter/core/src/img";
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
+@import '~decanter/core/src/scss/decanter-no-markup',
+'~decanter/core/src/scss/components/alert';
+
 .notifications-tab {
   .toolbar-item {
     &:not([data-notification-count="0"])::after {
@@ -30,46 +36,53 @@
 }
 
 .toolbar-tray {
-  .notification-list {
-    color: #000;
+  &.toolbar-tray-horizontal {
+    .notification-list {
+      color: #000;
+      display: flex;
+      flex-wrap: nowrap;
+      font-size: 15px;
 
-    li {
-      padding: 1em 1.3333em;
-      position: relative;
-    }
+      li {
+        padding: 1em 1.3333em;
+        position: relative;
+        float: none;
+        margin: 0 10px 0 0;
+        flex: 1 0 auto;
+        max-width: 350px;
+        background-position: left 5px;
 
-    a {
-      padding: 0;
-    }
-
-    .use-ajax {
-      font-size: 0;
-
-      &::before {
-        content: 'X';
-        height: 12px;
-        width: 12px;
-        display: block;
-        color: #000;
-        font-size: 12px;
-        position: absolute;
-        right: 0;
-        top: 0;
+        &.su-alert--success,
+        &.su-alert--error {
+          a {
+            color: #fff;
+          }
+        }
       }
 
-    }
+      a {
+        padding: 0;
+        display: inline-block;
+      }
 
-    .status {
-      background: #90ee90;
-    }
+      .use-ajax {
+        font-size: 0;
 
-    .warning {
-      background: #ffffe0;
+        &::before {
+          content: "X";
+          height: 12px;
+          width: 12px;
+          display: block;
+          color: #000;
+          font-size: 12px;
+          position: absolute;
+          right: 4px;
+          top: 4px;
+          background: #fff;
+          border-radius: 10px;
+          text-align: center;
+        }
+      }
     }
-
-    .error {
-      background: #cd5c5c;
-    }
-
   }
 }
