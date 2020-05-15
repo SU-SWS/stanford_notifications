@@ -12,5 +12,12 @@
         "psr-4": {
             "Drupal\\Tests\\stanford_notifications\\": "./tests/src"
         }
+    },
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^9"
+            }
+        }
     }
 }
