@@ -38,7 +38,7 @@ class StanfordNotificationsCommands extends DrushCommands {
    * @param string $message
    *   Notification message for the user.
    * @param array $options
-   *   Keyed array of options
+   *   Keyed array of options.
    *
    * @command stanford:add-notification
    * @options roles Comma delimited list of roles to set the notification for.
@@ -50,7 +50,12 @@ class StanfordNotificationsCommands extends DrushCommands {
     'roles' => '',
     'status' => Messenger::TYPE_STATUS,
   ]) {
-    $status_options = [Messenger::TYPE_STATUS, Messenger::TYPE_WARNING, Messenger::TYPE_ERROR];
+    $status_options = [
+      Messenger::TYPE_STATUS,
+      Messenger::TYPE_WARNING,
+      Messenger::TYPE_ERROR,
+    ];
+
     if (!in_array($options['status'], $status_options)) {
       throw new UserAbortException(new TranslatableMarkup('Invalid status. Please use one of the options: @options', ['@options' => implode(', ', $status_options)]));
     }
