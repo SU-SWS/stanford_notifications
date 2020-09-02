@@ -88,9 +88,18 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 }
 
 .notification-list {
-  .su-alert--success {
-    * {
-      color: $su-color-white;
+  .su-alert {
+    a {
+
+      &,
+      &:link {
+        text-decoration: underline;
+      }
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
     }
   }
 }

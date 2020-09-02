@@ -116,6 +116,12 @@ class NotificationService implements NotificationServiceInterface {
         ],
         '#cache' => ['tags' => ['notification:' . $notification->id()]],
       ];
+
+      // Light text for those with dark backgrounds.
+      if ($status == "status") {
+        $notification_list[count($notification_list) - 1]['#wrapper_attributes']['class'][] = 'su-alert--text-light';
+      }
+
     }
     return $notification_list;
   }
