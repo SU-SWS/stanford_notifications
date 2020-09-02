@@ -46,7 +46,7 @@ codeception: &codeception
           composer global require SU-SWS/stanford-caravan:dev-8.x-1.x
           ~/.composer/vendor/bin/sws-caravan codeception /var/www/html --extension-dir=/var/www/test
     - store_test_results:
-        path: /var/www/html/artifacts/behat
+        path: /var/www/html/artifacts
     - store_artifacts:
         path: /var/www/html/artifacts
 
@@ -85,15 +85,16 @@ workflows:
   weekly:
     jobs:
       - run-coverage
-#      - run-codeception
+#     - run-codeception
+
     triggers:
       - schedule:
           cron: "0 0 * * 0"
           filters:
             branches:
               only:
-                - 8.x-2.x
+                - 8.x-1.x
   tests:
     jobs:
       - run-coverage
- #     - run-codeception
+#     - run-codeception
