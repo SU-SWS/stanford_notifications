@@ -86,3 +86,11 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
     }
   }
 }
+
+.notification-list {
+  .su-alert--success {
+    * {
+      color: $su-color-white;
+    }
+  }
+}
