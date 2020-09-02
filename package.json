@@ -1,7 +1,7 @@
 {
-  "name": "stanford_module_example",
+  "name": "stanford_notifications",
   "version": "0.1.0",
-  "repository": "https://github.com/SU-SWS/stanford_module_example",
+  "repository": "https://github.com/SU-SWS/stanford_notifications",
   "scripts": {
     "build": "webpack --mode=development",
     "publish": "webpack --mode=production",
@@ -18,7 +18,7 @@
     "bourbon": "^5.1",
     "caniuse-lite": "^1.0.30001118",
     "css-loader": "^2.1",
-    "decanter": "git://github.com/SU-SWS/decanter.git#D8CORE-2490",
+    "decanter": "^6.1.0",
     "dot-prop": "^5.2.0",
     "drupal-behaviors-loader": "^1.0.1",
     "eslint": "^5.16",
@@ -45,5 +45,5 @@
     "webpack-manifest-plugin": "^2.2"
   },
   "author": "Stanford Web Services",
-  "license": "GPLV2"
+  "license": "GPL-3.0-or-later"
 }
