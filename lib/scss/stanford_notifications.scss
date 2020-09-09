@@ -86,3 +86,20 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
     }
   }
 }
+
+.notification-list {
+  .su-alert {
+    a {
+
+      &,
+      &:link {
+        text-decoration: underline;
+      }
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+}
