@@ -22,7 +22,7 @@ class NotificationServiceTest extends StanfordNotificationTestBase {
   /**
    * {@inheritDoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->service = \Drupal::service('notification_service');
   }
