@@ -5,6 +5,7 @@ namespace Drupal\Tests\stanford_notifications\Kernel;
 use Drupal\Core\Messenger\Messenger;
 use Drupal\Core\Session\AccountProxy;
 use Drupal\stanford_notifications\Entity\Notification;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class NotificationServiceTest.
@@ -22,7 +23,7 @@ class NotificationServiceTest extends StanfordNotificationTestBase {
   /**
    * {@inheritDoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->service = \Drupal::service('notification_service');
   }
@@ -47,7 +48,8 @@ class NotificationServiceTest extends StanfordNotificationTestBase {
     $entities = Notification::loadMultiple();
     $this->assertCount(1, $entities);
 
-    $account = new AccountProxy();
+    $event_dispatcher = $this->createMock(EventDispatcherInterface::class);
+    $account = new AccountProxy($event_dispatcher);
     $account->setAccount($user);
 
     $this->service->clearUserNotifications($account);
